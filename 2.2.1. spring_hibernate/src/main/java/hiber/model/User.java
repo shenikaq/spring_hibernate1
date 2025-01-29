@@ -1,9 +1,10 @@
 package hiber.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
 
    @Id
@@ -29,6 +30,28 @@ public class User {
       this.firstName = firstName;
       this.lastName = lastName;
       this.email = email;
+   }
+
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (!(o instanceof User)) return false;
+      User user = (User) o;
+      return Objects.equals(getId(), user.getId()) && Objects.equals(getFirstName(), user.getFirstName()) && Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getCar(), user.getCar());
+   }
+
+   @Override
+   public int hashCode() {
+      return Objects.hash(getId(), getFirstName(), getLastName(), getEmail(), getCar());
+   }
+
+   @Override
+   public String toString() {
+      return "id = " + id +
+              ", \n firstName = " + firstName +
+              ", \n lastName = " + lastName +
+              ", \n email = " + email +
+              ", \n car: " + car;
    }
 
    public Car getCar() {
